@@ -23,28 +23,34 @@
     height: 80vh;
   }
 
-  .spiderman,
+  .spiderman {
+    position: absolute;
+    bottom: 13%;
+    width: 150px; /* 🔹 Más grande */
+    transition: all 1.2s ease-in-out;
+  }
+
   .melody {
     position: absolute;
-    bottom: 10%;
-    width: 130px;
+    bottom: 15%;
+    width: 150px; /* 🔹 Igual tamaño */
     transition: all 1.2s ease-in-out;
   }
 
   .spiderman {
-    left: 12%;
+    left: 8%;
   }
 
   .melody {
-    right: 12%;
+    right: 8%;
   }
 
   .heart {
     position: absolute;
-    top: 35%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90px;
+    width: 100px;
     cursor: pointer;
     transition: transform 0.2s ease;
   }
@@ -55,11 +61,11 @@
 
   .progress {
     position: absolute;
-    bottom: 5%;
+    bottom: 6%;
     left: 50%;
     transform: translateX(-50%);
-    width: 280px;
-    height: 16px;
+    width: 300px;
+    height: 18px;
     background: rgba(255, 255, 255, 0.4);
     border-radius: 20px;
     overflow: hidden;
@@ -86,69 +92,35 @@
   }
 
   .gif {
-    width: 140px;
+    width: 150px;
     margin-top: 15px;
     display: none;
   }
 
-  /* 🔹 Ajuste para pantallas pequeñas */
   @media (max-width: 768px) {
-    .spiderman,
-    .melody {
-      width: 90px;
-      bottom: 20%;
+    .spiderman, .melody {
+      width: 110px;
+      bottom: 18%;
     }
 
     .heart {
-      width: 70px;
-      top: 40%;
+      width: 80px;
     }
 
     .progress {
-      width: 200px;
-      bottom: 8%;
+      width: 220px;
+      bottom: 4%;
     }
 
     .message {
-      font-size: 1.4em;
+      font-size: 1.5em;
     }
 
     .gif {
       width: 100px;
     }
   }
-
-  @media (max-width: 480px) {
-    .spiderman,
-    .melody {
-      width: 70px;
-      bottom: 25%;
-    }
-
-    .heart {
-      width: 60px;
-    }
-
-    .progress {
-      width: 180px;
-    }
-  }
 </style>
-
-</head>
-<body>
-
-<div class="scene">
-  <img src="spiderman.png" class="spiderman" id="spiderman">
-  <img src="mymelody.png" class="melody" id="melody">
-  <img src="heart.png" class="heart" id="heart" alt="Corazón">
-  <div class="progress">
-    <div class="progress-fill" id="fill"></div>
-  </div>
-</div>
-
-<div class="message" id="message">Tú y yo, mi reina 💞</div>
-<img src="1fa77.gif" class="gif" id="gif">
 
 <script>
   let progress = 0;
@@ -161,20 +133,26 @@
 
   heart.addEventListener('click', () => {
     if (progress < 100) {
-      progress += 9; // animación más lenta
+      progress += 9;
       fill.style.width = progress + "%";
 
-      // acercamiento más notable entre ambos
-      spiderman.style.left = (10.5 + progress * 0.3) + "%";
-      melody.style.right = (10.5 + progress * 0.3) + "%";
+      // 🔹 Se acercan, pero dejan un espacio final (más natural)
+      const acercamiento = progress * 0.25;
+      spiderman.style.left = (8 + acercamiento) + "%";
+      melody.style.right = (8 + acercamiento) + "%";
 
       if (progress >= 100) {
+        // 🔹 Deja una pequeña distancia entre ellos al final
+        spiderman.style.left = "44%";
+        melody.style.right = "44%";
+
         message.classList.add("show");
         gif.style.display = "block";
       }
     }
   });
 </script>
+
 
 </body>
 </html>
