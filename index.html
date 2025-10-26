@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tú y yo, mi reina 💞</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffc0ff, #a8d0ff);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .scene {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+  }
+
+  .spiderman {
+    position: absolute;
+    bottom: 13%;
+    width: 200px;
+    transition: all 1.2s ease-in-out;
+    left: 8%;
+  }
+
+  .melody {
+    position: absolute;
+    bottom: 15%;
+    width: 100px;
+    transition: all 1.2s ease-in-out;
+    right: 8%;
+  }
+
+  .heart {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .heart:active {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .progress {
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff9de6, #ff5fc0);
+    transition: width 0.5s ease;
+  }
+
+  .message {
+    font-size: 2em;
+    color: white;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    text-align: center;
+  }
+
+  .show {
+    opacity: 1;
+  }
+
+  .gif {
+    width: 150px;
+    margin-top: 15px;
+    display: none;
+  }
+
+  /* 🔹 RESPONSIVIDAD 🔹 */
+  @media (max-width: 1024px) {
+    .spiderman {
+      width: 160px;
+      bottom: 14%;
+    }
+
+    .melody {
+      width: 80px;
+      bottom: 16%;
+    }
+
+    .heart {
+      width: 90px;
+      top: 32%;
+    }
+
+    .progress {
+      width: 260px;
+      height: 16px;
+    }
+
+    .message {
+      font-size: 1.8em;
+    }
+
+    .gif {
+      width: 130px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .spiderman {
+      width: 130px;
+      bottom: 16%;
+    }
+
+    .melody {
+      width: 70px;
+      bottom: 18%;
+    }
+
+    .heart {
+      width: 75px;
+      top: 35%;
+    }
+
+    .progress {
+      width: 220px;
+      height: 14px;
+      bottom: 5%;
+    }
+
+    .message {
+      font-size: 1.5em;
+    }
+
+    .gif {
+      width: 100px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .spiderman {
+      width: 100px;
+      bottom: 20%;
+    }
+
+    .melody {
+      width: 60px;
+      bottom: 20%;
+    }
+
+    .heart {
+      width: 60px;
+      top: 38%;
+    }
+
+    .progress {
+      width: 160px;
+      height: 12px;
+      bottom: 4%;
+    }
+
+    .message {
+      font-size: 1.2em;
+    }
+
+    .gif {
+      width: 80px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene">
+  <img src="spiderman.png" class="spiderman" id="spiderman">
+  <img src="mymelody.png" class="melody" id="melody">
+  <img src="heart.png" class="heart" id="heart" alt="Corazón">
+  <div class="progress">
+    <div class="progress-fill" id="fill"></div>
+  </div>
+</div>
+
+<div class="message" id="message">Tú y yo, mi reina 💞</div>
+<img src="1fa77.gif" class="gif" id="gif">
+
+<script>
+  let progress = 0;
+  const heart = document.getElementById('heart');
+  const fill = document.getElementById('fill');
+  const spiderman = document.getElementById('spiderman');
+  const melody = document.getElementById('melody');
+  const message = document.getElementById('message');
+  const gif = document.getElementById('gif');
+
+  heart.addEventListener('click', () => {
+    if (progress < 100) {
+      progress += 9; // animación más lenta
+      fill.style.width = progress + "%";
+
+      // acercamiento más notable entre ambos
+      spiderman.style.left = (10.5 + progress * 0.3) + "%";
+      melody.style.right = (10.5 + progress * 0.3) + "%";
+
+      if (progress >= 100) {
+        message.classList.add("show");
+        gif.style.display = "block";
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
