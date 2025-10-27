@@ -25,7 +25,7 @@
 
   .spiderman {
     position: absolute;
-    bottom: 13%;
+    bottom: 18%;
     width: 200px;
     transition: all 1.2s ease-in-out;
     left: 8%;
@@ -33,7 +33,7 @@
 
   .melody {
     position: absolute;
-    bottom: 15%;
+    bottom: 20%;
     width: 100px;
     transition: all 1.2s ease-in-out;
     right: 8%;
@@ -41,7 +41,7 @@
 
   .heart {
     position: absolute;
-    top: 30%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100px;
@@ -55,7 +55,7 @@
 
   .progress {
     position: absolute;
-    bottom: 6%;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     width: 300px;
@@ -85,103 +85,58 @@
     opacity: 1;
   }
 
-  .gif {
-    width: 150px;
-    margin-top: 15px;
-    display: none;
+  /* Cuadro final con GIF */
+  .final-box {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+
+  .final-box.show {
+    opacity: 1;
+  }
+
+  .final-box img {
+    width: 100px;
   }
 
   /* 🔹 RESPONSIVIDAD 🔹 */
   @media (max-width: 1024px) {
-    .spiderman {
-      width: 160px;
-      bottom: 14%;
-    }
-
-    .melody {
-      width: 80px;
-      bottom: 16%;
-    }
-
-    .heart {
-      width: 90px;
-      top: 32%;
-    }
-
-    .progress {
-      width: 260px;
-      height: 16px;
-    }
-
-    .message {
-      font-size: 1.8em;
-    }
-
-    .gif {
-      width: 130px;
-    }
+    .spiderman { width: 160px; bottom: 19%; }
+    .melody { width: 80px; bottom: 21%; }
+    .heart { width: 90px; top: 27%; }
+    .progress { width: 260px; height: 16px; bottom: 9%; }
+    .message { font-size: 1.8em; }
+    .final-box img { width: 80px; }
   }
 
   @media (max-width: 768px) {
-    .spiderman {
-      width: 130px;
-      bottom: 16%;
-    }
-
-    .melody {
-      width: 70px;
-      bottom: 18%;
-    }
-
-    .heart {
-      width: 75px;
-      top: 35%;
-    }
-
-    .progress {
-      width: 220px;
-      height: 14px;
-      bottom: 5%;
-    }
-
-    .message {
-      font-size: 1.5em;
-    }
-
-    .gif {
-      width: 100px;
-    }
+    .spiderman { width: 130px; bottom: 21%; }
+    .melody { width: 70px; bottom: 23%; }
+    .heart { width: 75px; top: 30%; }
+    .progress { width: 220px; height: 14px; bottom: 8%; }
+    .message { font-size: 1.5em; }
+    .final-box img { width: 70px; }
   }
 
   @media (max-width: 480px) {
-    .spiderman {
-      width: 100px;
-      bottom: 20%;
-    }
-
-    .melody {
-      width: 60px;
-      bottom: 20%;
-    }
-
-    .heart {
-      width: 60px;
-      top: 38%;
-    }
-
-    .progress {
-      width: 160px;
-      height: 12px;
-      bottom: 4%;
-    }
-
-    .message {
-      font-size: 1.2em;
-    }
-
-    .gif {
-      width: 80px;
-    }
+    .spiderman { width: 100px; bottom: 25%; }
+    .melody { width: 60px; bottom: 25%; }
+    .heart { width: 60px; top: 32%; }
+    .progress { width: 160px; height: 12px; bottom: 7%; }
+    .message { font-size: 1.2em; }
+    .final-box img { width: 60px; }
   }
 </style>
 </head>
@@ -197,7 +152,12 @@
 </div>
 
 <div class="message" id="message">Tú y yo, mi reina 💞</div>
-<img src="1fa77.gif" class="gif" id="gif">
+
+<!-- Cuadro final con GIF -->
+<div class="final-box" id="finalBox">
+  <img src="1fa77.gif" alt="GIF">
+  <p>¡Tú y yo, mi reina 💞!</p>
+</div>
 
 <script>
   let progress = 0;
@@ -206,20 +166,26 @@
   const spiderman = document.getElementById('spiderman');
   const melody = document.getElementById('melody');
   const message = document.getElementById('message');
-  const gif = document.getElementById('gif');
+  const finalBox = document.getElementById('finalBox');
 
   heart.addEventListener('click', () => {
     if (progress < 100) {
-      progress += 9; // animación más lenta
+      progress += 9;
       fill.style.width = progress + "%";
 
-      // acercamiento más notable entre ambos
       spiderman.style.left = (-3 + progress * 0.3) + "%";
       melody.style.right = (-3 + progress * 0.3) + "%";
 
       if (progress >= 100) {
         message.classList.add("show");
-        gif.style.display = "block";
+
+        // mostrar cuadro final con GIF
+        finalBox.classList.add("show");
+
+        // difuminar y ocultar después de 3 segundos
+        setTimeout(() => {
+          finalBox.style.opacity = 0;
+        }, 3000);
       }
     }
   });
